@@ -13,80 +13,99 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="src/styles.css" />
-   
   </head>
   <body>
     <div class="container">
-      <h1>
-        Weather Forecast
-      </h1>
-      <form id="search-form">
-      <input id="city-input" type="text" placeholder="Enter a city" />
-      <input type="submit" value="Search" />
-      </form>
-      <button id="current-info">
-        Current
-      </button>
-      <br>
-      <br>
-      <b>
-        <h2>
-          Hey there!
-        </h2>
-        <h3>
-        2022/01/08(Sat) 11:11
-        </h3>
-        <br>
-      <h4> 🌧 <span class="temperature" id="temperatures">8</span>
-         <span class="units">
-           <a href="#" id="celcius-link">℃ </a>
-           |
-           <a href="#" id="fahrenheit-link"> °F</a>
-         </span> </h4>  
-      <h7>
-     ☔️70%   
-     <br>
-     💨N 6 mph
-      </h7>
+      <div class="weather-app-wrapper">
+        <div class="weather-app-desu">
+          <h1>Weather Forecast</h1>
+          <form id="search-form">
+            <input id="city-input" type="text" placeholder="Enter a city" />
+            <input type="submit" value="Search" />
+          </form>
+          <button id="current-info">Current</button>
+          <br />
+          <br />
+          <b>
+            <div class="overview">
+              <h2>Hey there!</h2>
+              <h2 id="condition"></h2>
+              <h3>Last updated:<span id="dates"></span></h3>
+              <br />
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="clearfix weather-temperature">
+                  <img
+                    src="https://ssl.gstatic.com/onebox/weather/48/sunny.png"
+                    alt="sunny"
+                    id="icon"
+                    class="float-left"
+                  />
+                  <div class="float-left">
+                    <strong id="temperature"></strong>
+                    <span class="units">
+                      <a href="#" id="celsius-link" class="active"> ° C</a>|
+                      <a href="#" id="fahrenheit-link">° F </a></span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <ul>
+                  <li>Feels like: <span id="feelsLike"></span> ℃</li>
+                  <li>Humidity: <span id="humidity"></span> %</li>
+                  <li>Wind: <span id="wind"></span> km/h</li>
+                </ul>
+              </div>
+            </div>
 
-      
-       
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+          </b>
+          <img
+            class="womanicon"
+            src="img/rain.svg"
+            alt="womanicon"
+            width="300px"
+          />
 
-         <div class="row">
-    <div class="col-6 col-sm-2  p-3  border ">💧Humidity <br> 50%</div>
-    <div class="col-6 col-sm-2  p-3 border "> 🌞UV index <br> 0 of 10</div>
-    <div class="w-100"></div>
-    <div class="col-6 col-sm-2 p-3 border ">🌅Sunrise <br> 6:51 am</div>
-    <div class="col-6 col-sm-2 p-3  border ">🌄Sunset <br> 4:47 pm</div>
-  </div>
-       
+          <div class="row">
+            <div class="col order">Sun <br />-1℃ 12℃ ☀️</div>
+            <div class="col order">
+              Mon <br />
+              4℃ 10℃ 🌤
+            </div>
+            <div class="col order">
+              Tue <br />
+              4℃ 10℃ 🌧
+            </div>
+            <div class="col order">
+              Wed <br />
+              1℃ 8℃ ☀️
+            </div>
+            <div class="col order">
+              Thu <br />
+              -1℃ 9℃🌤
+            </div>
           </div>
         </div>
-      </b>
-      <img
-        class="womanicon"
-        src="img/rain.svg"
-        alt="womanicon"
-        width="300px"
-      />
-
-      <div class="row">
-        <div class="col order">Sun <br>-1℃ 12℃ ☀️
-        </div>
-        <div class="col order">Mon <br> 4℃ 10℃ 🌤</div>
-        <div class="col order">Tue <br> 4℃ 10℃ 🌧</div>
-        <div class="col order">Wed <br> 1℃ 8℃ ☀️</div>
-        <div class="col order">Thu <br> -1℃ 9℃🌤</div>
+        <small
+          ><a
+            href="https://github.com/Uranulzii/weather-app-desu"
+            target="_blank"
+            >Open-source code</a
+          >, by Uranulzii Batbayar and hosted on
+          <a href="#" target="_blank">Netlify</a></small
+        >
       </div>
     </div>
-    <a href="https://github.com/Uranulzii/my-weather-app-desu"  target="_blank">Open-source code</a>  , by Uranulzii Batbayar
+
     <script src="src/javascript.js"></script>
   </body>
 </html>

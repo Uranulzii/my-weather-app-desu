@@ -1,13 +1,58 @@
+//To submit before deadline, I had to only work on the minimum requirements. It will be improved.  specially need to work on current location time update
+
+function showDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let day = days[date.getDay()];
+
+  return ` ${day} ${hours}:${minutes}`;
+}
+
 //search and submit,then result of it will show up
 function inputCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input");
   let h2 = document.querySelector("h2");
-  h2.innerHTML = `Hey there,Today ${cityInput.value} will be sunny!`;
+  h2.innerHTML = `Hey there,Today ${cityInput.value} will be`;
   function showTemperature(response) {
-    let weather = document.querySelector("#temperatures");
+    let weather = document.querySelector("#temperature");
     let temperature = Math.round(response.data.main.temp);
+    let descriptionElement = document.querySelector("#condition");
+    let humidityElement = document.querySelector("#humidity");
+    let windElement = document.querySelector("#wind");
+    let iconElement = document.querySelector("#icon");
+    let datesElement = document.querySelector("#dates");
+    let feelsLikeElement = document.querySelector("#feelsLike");
+
+    feelsLikeElement.innerHTML = Math.round(response.data.main.feels_like);
+    celsiusTemperature = response.data.main.temp;
     weather.innerHTML = `${temperature}`;
+    descriptionElement.innerHTML = response.data.weather[0].description;
+    humidityElement.innerHTML = response.data.main.humidity;
+    datesElement.innerHTML = showDate(response.data.dt * 1000);
+    windElement.innerHTML = Math.round(response.data.wind.speed);
+    iconElement.setAttribute(
+      "src",
+      `  http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    iconElement.setAttribute("alt", response.data.weather[0].description);
     console.log(response);
   }
   let apiKey = "1f4cebd395732f4932b34e3c80f1dbca";
@@ -19,63 +64,27 @@ function inputCity(event) {
 let cityForm = document.querySelector("#search-form");
 cityForm.addEventListener("submit", inputCity);
 
-// current time will show up
-function formatDate(date) {
-  let dates = date.getDate();
-  let hours = date.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = date.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  let year = date.getFullYear();
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  let day = days[now.getDay()];
-
-  let months = [
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09",
-    "10",
-    "11",
-    "12",
-  ];
-  let month = months[now.getMonth()];
-  return `${year}/${month}/${dates}(${day}) ${hours}:${minutes} `;
-}
-let now = new Date();
-let h3 = document.querySelector("h3");
-h3.innerHTML = formatDate(now);
-
 //converting temperature
 function convertToFahrenheit(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperatures");
-  let temperature = temperatureElement.innerHTML;
-  temperature = Number(temperature);
-  temperatureElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
 }
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
-function convertToCelcius(event) {
+function convertToCelsius(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperatures");
-  let temperature = temperatureElement.innerHTML;
-  temperature = Number(temperature);
-  temperatureElement.innerHTML = Math.round((temperature - 32) * 0.55);
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
-let celciusLink = document.querySelector("#celcius-link");
-celciusLink.addEventListener("click", convertToCelcius);
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", convertToCelsius);
 
 //showing current location weather
 
@@ -92,8 +101,8 @@ function showPosition(position) {
 }
 function showCurrentTemperature(result) {
   let h2 = document.querySelector("h2");
-  h2.innerHTML = `Hey there,Today ${result.data.name} will be sunny!`;
-  let weather = document.querySelector("#temperatures");
+  h2.innerHTML = `Hey there,Today ${result.data.name} will be ${result.data.weather[0].description}`;
+  let weather = document.querySelector("#temperature");
   let temperature = Math.round(result.data.main.temp);
   weather.innerHTML = `${temperature}`;
 }
